@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>练习</title>
+    <style>
+        [v-cloak] {
+            /* 应用了该属性的元素在加载完成前都隐藏 */
+            display: none;
+        } 
+    </style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<body>
+    <div id= "app"> 
+        <!-- 解决插值表达式闪烁的问题
+            v-cloak和v-text功能相同，
+            区别：v-cloak只会替换占位符{{}}里的内容。
+                v-text没有闪烁问题，会覆盖元素中的内容。
+        -->
+        <!-- 第一步：加上v-cloak 属性-->
+        <p v-cloak>{{msg}}</p> 
+        <h4 v-text="msg"></h4>
+        <div v-html="msg2"></div>
+        <!-- v-bind:绑定属性 把title绑定到title1这个变量上，变量可以实现字符串拼接-->
+        <input type="button" :title="title1">
+        <!-- v-on绑定事件 缩写@-->
+        <input type="button" v-bind:title="title1 + '123'" @click="show">
+    </div>
+
+    <script>
+            new Vue({
+                el: "#app",
+                data:{
+                    msg: '123',
+                    msg2: '<h1>这是个大标题</h1>',
+                    title1: '自己写的'
+                },
+                methods: {
+                    show() {
+                        alert ('123');
+                    }
+                }
+            });
+    </script>
+</body>
+</html>
