@@ -6,10 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <body>
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-    <div>4</div>
+    <div id="run">
+        <p>{{msg}}</p>
+        <input type="button" value="浪起来" @click="lang">
+        <input type="button" value="停止" @click="stop">
+    </div>
+    <script>
+        new Vue ({
+            el: "#run",
+            data: {
+                msg: '猥琐发育，别浪~~',
+                interval: null
+            },
+            methods: {
+                lang() {
+                    if (this.interval != null) return;
+                    // 如果不清空，会导致跑的速度越来越快。
+                    this.interval = setInterval(() => {
+                    const start = this.msg.substring(0,1);
+                    const end = this.msg.substring(1);
+                    this.msg = end + start;
+                    }, 400);
+                },
+                stop() {
+                    clearInterval(this.interval);
+                    this.interval = null;
+                }
+            }
+        })
+    </script>
 </body>
 </html>

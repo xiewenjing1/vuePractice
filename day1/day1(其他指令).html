@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<body>
+    <div id="app">
+
+        <div class="inner" @click='divHandle'>
+            <!-- 默认是冒泡机制，
+                先触发里面的button，后触发div,
+                stop阻止冒泡，要写在里面的元素上,
+                阻止它后的所有冒泡-->
+            <input type="button" value="点它1！"  @click.stop='buttonHandle'>
+        </div>
+
+        <!-- capture切换到捕获机制，要写在外面的元素上 -->
+        <div class="inner" @click.capture='divHandle'>
+            <input type="button" value="点它2！"  @click='buttonHandle'> 
+        </div>
+
+        <!-- self只有作用与元素本身才有效，
+            冒泡行为失效,只阻止它本身的，其他元素不受影响。
+            写在父元素上 -->
+        <div class="inner" @click.self='divHandle'>
+                <input type="button" value="点它3！"  @click='buttonHandle'> 
+        </div>
+
+            <!-- prevent阻止默认行为，如链接或表单 -->
+            <a href="https://www.baidu.com/" @click.prevent="linkHandle">点击跳转百度</a>
+
+            <!-- once只执行一次 -->
+            <a href="https://www.baidu.com/" @click.prevent.once="linkHandle">点击跳转百度</a>
+        
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {},
+            methods: {
+                divHandle() {
+                    console.log("这是div处理的");
+                },
+                buttonHandle() {
+                    console.log("这是button的处理");
+                },
+                linkHandle() {
+                    console.log("百度发来问候");
+                }
+            }
+        })
+    </script>
+    <style>
+        .inner{
+            width: 200px;
+            height: 100px;
+            background:lightblue;
+        }
+    </style>
+</body>
+</html>
